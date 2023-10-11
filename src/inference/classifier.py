@@ -8,33 +8,36 @@ from PIL import Image
 from skimage import io as skio
 from torch.cuda import device
 from torchvision.transforms.functional import normalize
-
+from typing import Any
 from models import ISNetDIS
 
 
 class DiSegmentPredictor:
-    def __init__(self, model_path: str):
+    """
+    Dis segmentation for image
+    """
+    def __init__(self, model_path: str) -> None:
         self.model = None
         self.model = self.load_model(model_path)
         self.input_size = [1024, 1024]
 
-    def get_model(self):
+    def get_model(self) -> Any:
         return self.model
 
     @staticmethod
-    def load_image(img_path: str):
+    def load_image(img_path: str) -> Any:
         image = skio.imread(img_path)
         if len(image.shape) < 3:
             image = image[:, :, np.newaxis]
         return image
 
-    def process_image(self, im: numpy.ndarray):
+    def process_image(self, im: numpy.ndarray) -> Tensor:
         im_tensor = torch.tensor(im, dtype=torch.float32).permute(2, 0, 1)
         im_tensor = F.upsample(torch.unsqueeze(im_tensor, 0), self.input_size, mode="bilinear").type(torch.uint8)
         image = torch.divide(im_tensor, 255.0)
         return normalize(image, [0.5, 0.5, 0.5], [1.0, 1.0, 1.0])
 
-    def predict(self, src_img_path: str):
+    def predict(self, src_img_path: str) -> Image:
         """
         it will load the image from url
         it will process the image as required by the model

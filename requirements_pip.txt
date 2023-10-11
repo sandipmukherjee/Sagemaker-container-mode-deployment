@@ -50,4 +50,7 @@ typing-extensions
 urllib3
 wheel
 sagemaker
+black
+pytest
+flake8
 
