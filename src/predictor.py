@@ -10,16 +10,8 @@ from inference.classifier import DiSegmentPredictor
 app = Flask(__name__)
 global model
 model = None
-# app.model = load_model("s3://kittl/saved_model_dis/isnet.pth")
-
-# @app.before_first_request
-# def before_first_request_func():
-#     MOODEL WEIGHT LOADING CODE
-#     return model
 
 
-# tells Flask what URL a user has to browse to call the function below.
-# you will need to browse the url : '/test'
 @app.route("/test")
 def test():
     return "First app in Flask"
@@ -38,7 +30,9 @@ def ping():
 @app.route("/invocations", methods=["POST"])
 def segment():
     """
-    Initialize the model id not initialized
+    Initialize the model if not initialized.
+    Uses the classifier to get the mask of the segmented image
+    return the mask as an encoded image
     :return:
     """
     global model

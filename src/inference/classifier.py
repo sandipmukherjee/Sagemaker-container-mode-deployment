@@ -35,6 +35,13 @@ class DiSegmentPredictor:
         return normalize(image, [0.5, 0.5, 0.5], [1.0, 1.0, 1.0])
 
     def predict(self, src_img_path: str):
+        """
+        it will load the image from url
+        it will process the image as required by the model
+        it will call the model and get the mask
+        :param src_img_path: source image path
+        :return: mask after segmentation
+        """
         print("im_path: ", src_img_path)
         src_img = self.load_image(src_img_path)
         image_shape = src_img.shape[0:2]
@@ -59,9 +66,4 @@ class DiSegmentPredictor:
         net.load_state_dict(torch.load(model_path, map_location="cpu"))
         return net
 
-    @staticmethod
-    def get_aws_creds():
-        aws_access_key = os.environ['AWS_ACCESS_KEY']
-        aws_secret_key = os.environ['AWS_SECRET_KEY']
-        return aws_access_key, aws_secret_key
 
