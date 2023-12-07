@@ -1,5 +1,12 @@
-# dis-segmentation-api
-DIS segmentation service with option to deploy in sagemaker
+# Deploy a custom model with Sagemaker container mode
+We use DIS segmentation model wrapped in a service with option to deploy in sagemaker
+Below is the link to the model
+https://github.com/xuebinqin/DIS
+
+The repo contains
+1. Option to start the service locally
+2. Deploy the model in Sagemaker
+3. CI/CD pipeline to trigger tests and deploy on pull request comment.
 
 Starting the service locally
 
