@@ -10,7 +10,6 @@ Starting the service locally
 
 
 # Improvements
-1. There is a serializing issue in sagemaker endpoint. Will fix that. Use api getaway with sagemaker endpoint.
 2. The classifier should have test for all the method including loading and predictions
 3. Will implement api level testing to test the input and output formats of endpoints
 4. Would do the model loading on application startup and not on first request
